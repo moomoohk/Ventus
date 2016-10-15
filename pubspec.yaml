@@ -1,0 +1,12 @@
+name: ventus
+version: 1.0.0
+description: Ventus wrapper for Dart
+author: moomoohk@ymail.com
+homepage: https://github.com/moomoohk/ventus.dart
+environment:
+  sdk: '>=1.13.1 <2.0.0'
+dependencies:
+  js: ^0.6.0
+  dquery: any
+dev_dependencies:
+  browser: any
