@@ -263,7 +263,7 @@ function(Emitter, Promise, View, WindowTemplate) {
 
 		set maximized(value) {
 			if(value) {
-				this._restoreMaximized = this.stamp();
+				this._restoreMaximized = this.stamp(true);
 				this.signals.emit('maximize', this, this._restoreMaximized);
 			}
 			else {
@@ -279,7 +279,7 @@ function(Emitter, Promise, View, WindowTemplate) {
 
 		set minimized(value) {
 			if(value) {
-				this._restoreMinimized = this.stamp();
+				this._restoreMinimized = this.stamp(false);
 				this.signals.emit('minimize', this, this._restoreMinimized);
 			}
 			else {
@@ -494,7 +494,7 @@ function(Emitter, Promise, View, WindowTemplate) {
 		/**
 		 * @return A function that restores this window
 		 */
-		stamp: function() {
+		stamp: function(savePos) {
 			this.restore = (function() {
 				var size = {
 					width: this.width,
@@ -508,7 +508,12 @@ function(Emitter, Promise, View, WindowTemplate) {
 
 				return function() {
 					this.resize(size.width, size.height);
-					this.move(pos.x, pos.y);
+
+					if (savePos) {
+                        this.move(pos.x, pos.y);
+                    } else {
+                    	this.move(this.x, this.y);
+					}
 
 					return this;
 				};
