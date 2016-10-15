@@ -21,7 +21,7 @@ define(function() {
 			maximize: function(win) {
 				win.move(0,0);
 				win.el.css('-webkit-transform', 'translate3d(0, 0, 0);');
-				win.resize(this.el.width(), this.el.height());
+				win.resize(window.innerWidth, window.innerHeight);
 			},
 
 			restore: function(win, restore) {
