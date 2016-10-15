@@ -1,4 +1,4 @@
-import "../../dist/ventus.dart";
+import "../../lib/ventus.dart";
 import "dart:html" as html;
 import "dart:async";
 import "dart:js";
