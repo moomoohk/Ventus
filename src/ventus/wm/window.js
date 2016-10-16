@@ -412,11 +412,11 @@ function(Emitter, Promise, View, WindowTemplate) {
 		},
 
 		set x(value) {
-			this.el.css('left', value);
+            this.el.css('left', Math.max(0, value));
 		},
 
 		set y(value) {
-			this.el.css('top', value);
+            this.el.css('top', Math.min(Math.max(0, value), window.innerHeight - this.$titlebar.height()));
 		},
 
 		get x() {
