@@ -32,7 +32,8 @@
 @bginactive: #888;
 @time: 0.5s;
 
-@minheight: 60px;
+@windowtitleheight: 36px;
+@minheight: @windowtitleheight;
 
 .wm-window {
 	opacity: 0.98;
@@ -71,8 +72,8 @@
 
 			user-select: none;
 
-			height: 36px;
-			min-height: 36px;
+			height: @windowtitleheight;
+			min-height: @windowtitleheight;
 
 			background-color: @bgactive;
 
@@ -249,6 +250,14 @@
 			overflow-y: hidden;
 		}
 
+		button.wm-resize {
+			display: none;
+		}
+	}
+}
+
+.wm-window.maximized, .wm-window.minimized {
+	.wm-window-box {
 		button.wm-resize {
 			display: none;
 		}

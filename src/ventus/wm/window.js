@@ -263,7 +263,14 @@ function(Emitter, Promise, View, WindowTemplate) {
 
 		set maximized(value) {
 			if(value) {
-				this._restoreMaximized = this.stamp(true);
+				if (!this.minimized) {
+                    this._restoreMaximized = this.stamp(true);
+                } else {
+                	this._minimized = false;
+                    this._restoreMaximized = this.stamp(true);
+                    this._restoreMaximized.prototype.size = this._restoreMinimized.prototype.size;
+				}
+
 				this.signals.emit('maximize', this, this._restoreMaximized);
 			}
 			else {
@@ -279,7 +286,12 @@ function(Emitter, Promise, View, WindowTemplate) {
 
 		set minimized(value) {
 			if(value) {
-				this._restoreMinimized = this.stamp(false);
+                if (!this.maximized) {
+                    this._restoreMinimized = this.stamp(true);
+                } else {
+                	this._maximized = false;
+				}
+
 				this.signals.emit('minimize', this, this._restoreMinimized);
 			}
 			else {
@@ -496,28 +508,33 @@ function(Emitter, Promise, View, WindowTemplate) {
 		 */
 		stamp: function(savePos) {
 			this.restore = (function() {
-				var size = {
-					width: this.width,
-					height: this.height
-				};
-
-				var pos = {
-					x: this.x,
-					y: this.y
-				};
-
 				return function() {
-					this.resize(size.width, size.height);
+					this.resize(this.restore.prototype.size.width, this.restore.prototype.size.height);
 
-					if (savePos) {
-                        this.move(pos.x, pos.y);
+					if (this.restore.prototype.savePos) {
+                        this.move(this.restore.prototype.pos.x, this.restore.prototype.pos.y);
                     } else {
                     	this.move(this.x, this.y);
 					}
 
+                    this.el.onTransitionEnd(function() {
+                        this.el.removeClass("maximized minimized");
+                    }, this);
+
 					return this;
 				};
 			}).apply(this);
+
+            this.restore.prototype.savePos = savePos;
+            this.restore.prototype.size = {
+                width: this.width,
+                height: this.height
+            };
+
+            this.restore.prototype.pos = {
+                x: this.x,
+                y: this.y
+            };
 
 			return this.restore;
 		},
@@ -525,7 +542,10 @@ function(Emitter, Promise, View, WindowTemplate) {
 		restore: function(){},
 
 		maximize: function() {
+            this.el.removeClass("maximized minimized");
+
 			this.el.addClass('maximazing');
+			this.el.addClass("maximized");
 			this.el.onTransitionEnd(function(){
 				this.el.removeClass('maximazing');
 			}, this);
@@ -535,7 +555,10 @@ function(Emitter, Promise, View, WindowTemplate) {
 		},
 
 		minimize: function() {
+            this.el.removeClass("maximized minimized");
+
 			this.el.addClass('minimizing');
+			this.el.addClass("minimized");
 			this.el.onTransitionEnd(function(){
 				this.el.removeClass('minimizing');
 			}, this);
