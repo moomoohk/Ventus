@@ -11,7 +11,7 @@ define([
 	'ventus/wm/modes/expose',
 	'ventus/wm/modes/fullscreen'
 ],
-function($, Window, View, DefaultMode, ExposeMode, FullscreenMode) {
+function($, Window, View, DefaultMode, /*ExposeMode,*/ FullscreenMode) {
 	'use strict';
 
 	var WindowManager = function () {
@@ -62,7 +62,7 @@ function($, Window, View, DefaultMode, ExposeMode, FullscreenMode) {
 
 		modes: {
 			'default': DefaultMode,
-			'expose': ExposeMode,
+			// 'expose': ExposeMode,
 			'fullscreen': FullscreenMode
 		},
 
