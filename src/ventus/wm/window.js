@@ -289,7 +289,7 @@ function(Emitter, Promise, View, WindowTemplate) {
 		set minimized(value) {
 			if(value) {
                 if (!this.maximized) {
-                    this._restoreMinimized = this.stamp(true);
+                    this._restoreMinimized = this.stamp(false);
                 } else {
                 	this._maximized = false;
 				}
