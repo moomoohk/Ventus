@@ -138,7 +138,9 @@ function(Emitter, Promise, View, WindowTemplate) {
 				},
 
 				'.wm-window-title mousedown': function(e) {
-					this.slots.move.call(this, e);
+					if (!this.maximized) {
+                        this.slots.move.call(this, e);
+                    }
 				},
 
 				'.wm-window-title dblclick': function() {
