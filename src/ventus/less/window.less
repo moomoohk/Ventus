@@ -12,7 +12,6 @@
 
 @keyframes appear {
 	0% {transform: scale(0,0);}
-	80% {transform: scale(1.2, 1.2);}
 	100% {transform: rotate(1,1);}
 }
 
@@ -21,7 +20,6 @@
 
 @keyframes close {
 	0% {transform: scale(1,1);}
-	20% {transform: scale(1.2, 1.2);}
 	100% {transform: scale(0,0);}
 }
 
@@ -267,15 +265,15 @@
 .wm-window.minimizing,
 .wm-window.maximazing {
 	transform: translate3d(0, 0, 0);
-	transition: all .5s ease-out;
+	transition: all 0.2s ease;
 }
 
 .wm-window.closing {
-	animation: close 0.3s 1 ease-in forwards;
+	animation: close 0.2s 1 ease forwards;
 }
 
 .wm-window.opening {
-	animation: appear 0.4s 1 ease-out forwards;
+	animation: appear 0.2s 1 ease forwards;
 }
 
 .wm-window.resizing {
@@ -283,8 +281,6 @@
 }
 
 .wm-window.move {
-	animation: wobbly 0.5s 0.2s infinite;
-
 	* {
 		user-select: none;
 	}
