@@ -32,6 +32,7 @@ function(Emitter, Promise, View, WindowTemplate) {
 			content: '',
 
 			movable: true,
+			closable: true,
 			resizable: true,
 			widget: false,
 			titlebar: true
@@ -85,6 +86,7 @@ function(Emitter, Promise, View, WindowTemplate) {
 
 		// Properties
 		this.widget = false;
+		this.closable = (typeof options.closable !== 'undefined') ? options.closable : true;
 		this.movable = true;
 		this.resizable = (typeof options.resizable !== 'undefined') ?
 			options.resizable :
@@ -345,6 +347,20 @@ function(Emitter, Promise, View, WindowTemplate) {
 			return this._movable;
 		},
 
+		set closable(value) {
+			if (!value) {
+				this.el.addClass('noclosable');
+			} else {
+				this.el.removeClass('noclosable');
+			}
+
+			this._closable = !!value;
+		},
+
+		get closable() {
+			return this._closable;
+		},
+
 		set resizable(value) {
 			if(!value) {
 				this.el.addClass('noresizable');
@@ -505,6 +521,10 @@ function(Emitter, Promise, View, WindowTemplate) {
 			return this;
 		},
 
+		center: function() {
+            this.move((window.innerWidth / 2) - (this.el.outerWidth() / 2), (window.innerHeight / 2) - (this.el.outerHeight() / 2));
+        },
+
 		/**
 		 * @return A function that restores this window
 		 */
@@ -520,7 +540,7 @@ function(Emitter, Promise, View, WindowTemplate) {
 					}
 
                     this.el.onTransitionEnd(function() {
-                        this.el.removeClass("maximized minimized");
+                        this.el.removeClass('maximized minimized');
                     }, this);
 
 					return this;
@@ -544,10 +564,10 @@ function(Emitter, Promise, View, WindowTemplate) {
 		restore: function(){},
 
 		maximize: function() {
-            this.el.removeClass("maximized minimized");
+            this.el.removeClass('maximized minimized');
 
 			this.el.addClass('maximazing');
-			this.el.addClass("maximized");
+			this.el.addClass('maximized');
 			this.el.onTransitionEnd(function(){
 				this.el.removeClass('maximazing');
 			}, this);
@@ -557,10 +577,10 @@ function(Emitter, Promise, View, WindowTemplate) {
 		},
 
 		minimize: function() {
-            this.el.removeClass("maximized minimized");
+            this.el.removeClass('maximized minimized');
 
 			this.el.addClass('minimizing');
-			this.el.addClass("minimized");
+			this.el.addClass('minimized');
 			this.el.onTransitionEnd(function(){
 				this.el.removeClass('minimizing');
 			}, this);

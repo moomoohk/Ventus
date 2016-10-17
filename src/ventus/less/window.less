@@ -254,6 +254,16 @@
 	}
 }
 
+.wm-window.noclosable {
+	.wm-window-box {
+		header.wm-window-title {
+			button.wm-close {
+				display: none;
+			}
+		}
+	}
+}
+
 .wm-window.maximized, .wm-window.minimized {
 	.wm-window-box {
 		button.wm-resize {

@@ -94,6 +94,7 @@ class WindowOptions {
   external dynamic get content;
 
   external bool get movable;
+  external bool get closable;
   external bool get resizable;
   external bool get widget;
   external bool get titlebar;
@@ -110,6 +111,7 @@ class WindowOptions {
       int y,
       var content,
       bool movable,
+      bool closable,
       bool resizable,
       bool widget,
       bool titlebar,
@@ -175,6 +177,7 @@ class Window {
   external void destroy();
   external void resize(int w, int h);
   external void move(int x, int y);
+  external void center();
   // stamp
   external void restore();
   external void maximize();
