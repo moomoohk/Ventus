@@ -203,6 +203,8 @@ class InternalWindowManager {
 
   external List<Window> get windows;
 
+  external Window get active;
+
   external Window createWindow(WindowOptions options);
 }
 
@@ -251,4 +253,6 @@ class WindowManager {
   }
 
   bool get overlay => _jsObj.overlay;
+
+  Window get active => _jsObj.active;
 }
