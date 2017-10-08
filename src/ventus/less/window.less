@@ -275,7 +275,7 @@
 .wm-window.minimizing,
 .wm-window.maximazing {
 	transform: translate3d(0, 0, 0);
-	transition: all 0.2s ease;
+	transition: all .1s ease;
 }
 
 .wm-window.minimized {
@@ -305,7 +305,7 @@
 }
 
 .wm-window.closing {
-	animation: close 0.2s 1 ease forwards;
+	animation: close 0.1s 1 ease-in forwards;
 }
 
 .wm-window.opening {
@@ -320,6 +320,10 @@
 	* {
 		user-select: none;
 	}
+}
+
+.wm-window.wobble {
+	animation: wobbly 0.5s 0.2s infinite;
 }
 
 .wm-window.closed {
